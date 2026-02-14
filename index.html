@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HF Drive V1</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { background-color: #121212; color: white; font-family: 'Inter', sans-serif; }
+        .accent-purple { color: #700d91; }
+        .bg-accent { background-color: #700d91; }
+        .border-accent { border-color: #700d91; }
+        .glass-card { 
+            background: rgba(255, 255, 255, 0.05); 
+            backdrop-filter: blur(10px); 
+            border: 1px solid rgba(112, 13, 145, 0.3);
+        }
+        .file-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1rem; }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div class="flex justify-between items-center mb-8">
+        <h1 class="text-2xl font-bold flex items-center gap-2">
+            <i class="fa-solid fa-cloud accent-purple"></i> HF <span class="accent-purple">Drive</span>
+        </h1>
+        <div id="userBadge" class="hidden text-sm bg-zinc-800 px-3 py-1 rounded-full border border-accent"></div>
+    </div>
+
+    <div id="authSection" class="glass-card p-6 rounded-xl max-w-md mx-auto mb-8">
+        <h2 class="text-xl mb-4">Connect Hugging Face</h2>
+        <input type="password" id="hfToken" placeholder="Enter Write Token" class="w-full p-2 mb-4 rounded bg-zinc-900 border border-zinc-700 text-white focus:outline-none focus:border-accent">
+        <input type="text" id="hfRepo" placeholder="username/dataset-name" class="w-full p-2 mb-4 rounded bg-zinc-900 border border-zinc-700 text-white focus:outline-none focus:border-accent">
+        <button onclick="saveConfig()" class="w-full bg-accent hover:bg-purple-800 transition py-2 rounded font-bold">Connect Storage</button>
+    </div>
+
+    <div id="driveUI" class="hidden">
+        <div class="flex flex-wrap gap-4 mb-8">
+            <label class="bg-accent px-6 py-2 rounded-full cursor-pointer hover:opacity-90 transition font-medium">
+                <i class="fa-solid fa-upload mr-2"></i> Upload File
+                <input type="file" id="fileInput" class="hidden" onchange="uploadFile()">
+            </label>
+            <button onclick="createFolder()" class="bg-zinc-800 border border-accent px-6 py-2 rounded-full hover:bg-zinc-700 transition">
+                <i class="fa-solid fa-folder-plus mr-2"></i> New Folder
+            </button>
+        </div>
+
+        <div class="glass-card p-6 rounded-xl min-h-[400px]">
+            <div id="currentPath" class="mb-4 text-zinc-400 text-sm">Root /</div>
+            <div id="fileList" class="file-grid">
+                </div>
+        </div>
+    </div>
+
+    <script type="module" src="app.js"></script>
+</body>
+</html>
